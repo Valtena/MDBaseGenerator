@@ -11,7 +11,8 @@ Class {
 		'title',
 		'primaryColor',
 		'accentColor',
-		'cssInFileLibrary'
+		'cssInFileLibrary',
+		'plugins'
 	],
 	#category : #MDBaseGenerator
 }
@@ -43,6 +44,16 @@ MDBaseGenerator >> accentColor [
 { #category : #accessing }
 MDBaseGenerator >> accentColor: anObject [
 	accentColor := anObject
+]
+
+{ #category : #plugins }
+MDBaseGenerator >> addPlugin: plugin [
+	^ self plugins
+		at: plugin name
+		put:
+			(plugin
+				withGenerator: self;
+				yourself)
 ]
 
 { #category : #accessing }
@@ -137,6 +148,16 @@ MDBaseGenerator >> packageName [
 { #category : #accessing }
 MDBaseGenerator >> packageName: anObject [
 	packageName := anObject
+]
+
+{ #category : #plugins }
+MDBaseGenerator >> plugins [
+	^ plugins ifNil: [ plugins:= Dictionary new ]
+]
+
+{ #category : #plugins }
+MDBaseGenerator >> plugins: anObject [
+	plugins := anObject
 ]
 
 { #category : #accessing }
